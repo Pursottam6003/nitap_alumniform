@@ -1,0 +1,15 @@
+:root {
+    --nav-height: 64px;
+    --footer-height: 240px;
+}
+
+::-webkit-scrollbar {
+    background: #e7e7e7d9;
+    height: 8px;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 2px;
+}
