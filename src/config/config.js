@@ -4,16 +4,17 @@ import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import 'firebase/compat/storage'
 
+import { GoogleAuthProvider } from 'firebase/auth'
+
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyCrAMpZXyYPlV1H2vdaXyk7WtmIMd2N7M8",
-    authDomain: "bakewithlove-61ccb.firebaseapp.com",
-    projectId: "bakewithlove-61ccb",
-    storageBucket: "bakewithlove-61ccb.appspot.com",
-    messagingSenderId: "102914727968",
-    appId: "1:102914727968:web:9ccbf327f7249695619c45",
-    measurementId: "G-630N3DZKCF"
-  };
+  apiKey: "AIzaSyAEu3QmaFU-s6uPI_l_Lo0zp5XhymsQCOg",
+  authDomain: "alumniform-4fe0a.firebaseapp.com",
+  projectId: "alumniform-4fe0a",
+  storageBucket: "alumniform-4fe0a.appspot.com",
+  messagingSenderId: "312362900799",
+  appId: "1:312362900799:web:863dbeeeaabf9f9a69078a"
+};
 
 
   firebase.initializeApp(firebaseConfig);
@@ -22,5 +23,6 @@ const firebaseConfig = {
   const auth = firebase.auth()
   const fs = firebase.firestore();
   const storage= firebase.storage();
+  const provider =new GoogleAuthProvider();
   
-  export {auth,fs,storage}
+  export {provider}

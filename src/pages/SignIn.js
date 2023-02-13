@@ -9,6 +9,7 @@
 // export default SignIn
 
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -22,6 +23,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import {provider} from '../config/config'
+
+import {getAuth,signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider} from "firebase/auth"
+const auth = getAuth();
 
 function Copyright(props) {
   return (
@@ -37,16 +43,52 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-
+const user=null;
 export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    user ={
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+
+    auth.signInWithEmailAndPassword(user.email,user.password).then(()=>{
+      // sign ned sucessfully
+      
+    })
+    .catch(error => console.log(error.message))
+    
+
+
   };
+
+  const [value,setValue] = useState('')
+  const handleClick =()=>{
+    
+    signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    // The signed-in user info.
+    user = result.user;
+    setValue(user.email);
+    console.log(user)
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -111,6 +153,11 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+
+            {user ? <>hello </> :  <div>
+              <button onClick={handleClick}>Sign in with google</button>
+            </div>}
+           
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
