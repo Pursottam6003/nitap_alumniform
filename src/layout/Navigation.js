@@ -6,13 +6,13 @@ import { Button } from '@mui/material'
 import {Typography} from '@mui/material'
 
 const topbarLinks =[
-    {label:"Home" ,links:"nitap.ac.in"},
-    {label:"About NITAP Alumni" ,links:"nitap.ac.in"},
-    {label:"President's Message" ,links:"nitap.ac.in"}, 
-    {label:"Previous Talk" ,links:"nitap.ac.in"},
-    {label:"Gallery" ,links:"nitap.ac.in"},
-    {label:"More" ,links:"nitap.ac.in"},      
-    {label:"Join Us" ,links:"nitap.ac.in"},   
+    {label:"Home" ,links:"https://nitap.ac.in"},
+    {label:"About NITAP Alumni" ,links:"https://google.com"},
+    {label:"President's Message" ,links:"http://facebook.com"}, 
+    {label:"Previous Talk" ,links:"https://abcd.com"},
+    {label:"Gallery" ,links:"https://iitb.ac.in"},
+    {label:"More" ,links:"https://pqrs.com"},      
+    {label:"Join Us" ,links:"https://gmail.com"},   
 ]
 
 
@@ -23,6 +23,17 @@ const Navigation = () => {
         <div className='logoBox'>
         <img src={logo} style={{height:"100px"}}></img>
         </div>
+
+        <div className='navLinks'>
+        { topbarLinks.map((data,i) =>{
+              return (
+                <div className ="navEle" key ={data.links}> <a  target="_blank" href={data.links}>
+                {data.label} 
+                </a></div>
+              )
+            })
+        }
+      </div>
 
         <div style={{display:"flex" ,gap:"20px" ,paddingRight:"30px"}}>
             <Button  variant='outlined' to='/login'>
@@ -36,12 +47,7 @@ const Navigation = () => {
     </div>
 
 
-    <div className='navLinks'>
-        { topbarLinks.map((data,i) =>{
-                <button key ={data.links}> {data.label} </button>
-            })
-        }
-    </div>
+
 
     
     </>
