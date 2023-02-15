@@ -1,12 +1,3 @@
-// import React from 'react'
-
-// const SignUp = () => {
-//   return (
-//     <div>SignUp</div>
-//   )
-// }
-
-// export default SignUp
 
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -41,6 +32,17 @@ function Copyright(props) {
   );
 }
 
+const countryList =[
+  { label: "India"},
+  { label: "Pakistan"},
+  { label: "Us"},
+  { label: "Srilanka"},
+  { label: "Bangladesh"},
+  { label: "Nepal"},
+  { label: "Australia"},
+  { label: "Dubai"},
+  { label: "Africa"},
+]
 const theme = createTheme();
 
 export default function SignUp() {
@@ -73,6 +75,8 @@ export default function SignUp() {
 
   };
 
+
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -85,9 +89,11 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          {/* <Avatar sx={{ m: 4}}>
             <LockOutlinedIcon />
-          </Avatar>
+
+          </Avatar> */}
+            <img src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/null/external-alumni-university-flaticons-flat-flat-icons-3.png"/>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
@@ -124,6 +130,57 @@ export default function SignUp() {
                   autoComplete="email"
                 />
               </Grid>
+
+              <Grid item xs={12} sm={2} >
+                <TextField
+                 
+                  id="combo-box-demo"
+                  options={countryList}
+                  renderInput={(params) => <TextField {...params} 
+                    autoComplete="Vehicle Name"
+                    name="vehicleName"
+                    required
+                    fullWidth
+                    id="vehicleName"
+                    label="Vehicle Name"
+                    />} 
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={10} >
+                <TextField
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone Number"
+                  name="phone"
+                  autoComplete="tel"
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Current Address"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Batch & Dept"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -135,10 +192,24 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Confirm Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="I agree to receive notifications and updates of alumni via email."
                 />
               </Grid>
             </Grid>

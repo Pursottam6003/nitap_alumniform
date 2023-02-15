@@ -7,7 +7,6 @@ import DirectorImage from "../media/directorPhoto.jpg"
 import OnlineAlumniMeet from "../media/onlineAlumniMeet.jpg"
 
 
-
 const images = [
   {
     photo: Covocation_old,
@@ -16,10 +15,6 @@ const images = [
   {
     photo: Covocation_new,
     label: "9th Convocation at NIT Arunachal Pradesh"
-  },
-  {
-    photo: Alumnni_meet,
-    label: "Offline Alumni Meet at Banglore"
   },
   {
     photo: DirectorImage,
@@ -37,17 +32,17 @@ const images = [
 //   "https://swiperxapp.com/wp-content/uploads/2016/10/SwipeRx-Winners2-2.jpg";
 class SimpleSlider extends React.Component {
   render() {
-    var settings = {
+    const settings = {
       dots: true,
       infinite: true,
       speed: 1000,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 5000,
+      autoPlay: true,
+      autoPlaySpeed: 5000,
       slickNext: true,
       slickPrevious: true,
-      swipe: true
+      swipe: true,
     };
     return (
       <Slider {...settings}>
@@ -64,7 +59,7 @@ class SimpleSlider extends React.Component {
                 // overflow: "hidden",
                 justifyContent:"center",
                 width: "90%",
-                paddingTop:"10px"
+                paddingTop:"10px",
               }}
               {...settings}
             />
