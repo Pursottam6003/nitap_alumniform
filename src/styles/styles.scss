@@ -134,3 +134,16 @@
     width: 50px !important;
     height: 35px !important;
 }
+
+.MoreOptions
+{
+    text-align: center;
+    color:rgb(255, 98, 0);
+
+    .SignInOptions
+    {
+        gap:20px;
+        display: flex;
+        justify-content: center;
+    }
+}

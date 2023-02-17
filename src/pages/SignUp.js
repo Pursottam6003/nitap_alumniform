@@ -1,32 +1,20 @@
 
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import React from 'react';
+import {Button,CssBaseline,TextField,FormControlLabel,Checkbox,Link,Grid,Box,Typography,Container,Autocomplete,Alert,AlertTitle} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Autocomplete } from '@mui/material';
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { useState } from 'react';
+import {auth,fs} from '../config/config'
 
-const auth = getAuth();
-
-
+const theme = createTheme();
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        NIT AP Alumni Cell
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -80,45 +68,41 @@ const BatchList =[
   {label:"PHD 2020-25"} ,
 
 ]
-const theme = createTheme();
+
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
+  const handleSubmit = (e) => {
 
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+ 
     const user ={
       fullName:data.get('firstName')+' '+data.get('lastName'),
       email: data.get('email'),
       phoneNumber:value,
-      passord: data.get('password'),
+      address:data.get('address'),
+      password: data.get('password'),
       batch: data.get('batch'),
       dept : data.get('department'),
     }
 
-    console.log(user);
-
-    createUserWithEmailAndPassword(auth, user.email, user.passord)
-    .then((userCredential) => {
+    auth.createUserWithEmailAndPassword(user.email, user.password).then((userCredential) => {
       // Signed in 
-      const user = userCredential.user;
-      console.log(user);
-      // ...
+      setSignedUp(true);
+      fs.collection('Users').doc(userCredential.user.uid).set(user)
+    .then(
+      console.log('Date Saved Sucessfully')
+    )
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+      console.log(error);
     });
-
-
   };
 
-  const [value, setValue] = useState()
+  const [value, setValue] = useState(null)
+  const [signedUp,setSignedUp] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -137,6 +121,12 @@ export default function SignUp() {
 
           </Avatar> */}
             <img src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/null/external-alumni-university-flaticons-flat-flat-icons-3.png"/>
+            { signedUp && <>
+            <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            This is a success alert — <strong>check it out!</strong>
+            </Alert>
+            </>}
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
@@ -189,11 +179,11 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  name="address"
                   label="Current Address"
                   type="text"
-                  id="password"
-                  autoComplete="new-password"
+                  id="address"
+                  autoComplete="location"
                 />
               </Grid>
 
@@ -253,6 +243,8 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
+
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">

@@ -1,40 +1,21 @@
-// import React from 'react'
 
-// const SignIn = () => {
-//   return (
-//     <div>SignIn</div>
-//   )
-// }
-
-// export default SignIn
-
-import * as React from 'react';
+import React from 'react';
 import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import {Button,CssBaseline,TextField,FormControlLabel,Checkbox,Link,Grid,Box,Typography,Container,Autocomplete,Alert,AlertTitle} from '@mui/material';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import {provider} from '../config/config'
+import {auth,provider} from '../config/config'
 
-import {getAuth,signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider} from "firebase/auth"
-const auth = getAuth();
+import {getAuth,signInWithPopup,GoogleAuthProvider} from "firebase/auth"
+//const auth = getAuth();
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        NIT AP Alumni Association
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -43,28 +24,30 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-const user=null;
+
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    user ={
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+   const user ={
       email: data.get('email'),
       password: data.get('password'),
     };
 
+    console.log(user);
+
     auth.signInWithEmailAndPassword(user.email,user.password).then(()=>{
       // sign ned sucessfully
+      setSignedUp(true);
+      console.log('signed in sucessfully')
       
     })
     .catch(error => console.log(error.message))
     
-
-
   };
 
   const [value,setValue] = useState('')
-  const handleClick =()=>{
+  const SignUpGoogle =()=>{
     
     signInWithPopup(auth, provider)
   .then((result) => {
@@ -73,9 +56,9 @@ export default function SignIn() {
     const token = credential.accessToken;
 
     // The signed-in user info.
-    user = result.user;
-    setValue(user.email);
-    console.log(user)
+    // user = result.user;
+    // setValue(user.email);
+    // console.log(user)
     // IdP data available using getAdditionalUserInfo(result)
     // ...
   }).catch((error) => {
@@ -89,6 +72,16 @@ export default function SignIn() {
     // ...
   });
   }
+
+  const signUpFacebook =()=>{
+    console.log('facebook authentication')
+  }
+
+  const signUpMicrosoft =()=>{
+    console.log('Microsoft authentication')
+  }
+
+  const [signedUp,setSignedUp] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -104,6 +97,12 @@ export default function SignIn() {
         >
           <img src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/null/external-alumni-university-flaticons-flat-flat-icons-3.png"/>
 
+          { signedUp && <>
+            <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            This is a success alert — <strong>check it out!</strong>
+            </Alert>
+            </>}
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -128,7 +127,24 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-         
+
+            <div className='MoreOptions'>
+              <h3>OR</h3>
+              <div className='SignInOptions'>
+              <div onClick={SignUpGoogle}>
+              <img src="https://img.icons8.com/color/48/null/google-logo.png"/>
+              </div>
+
+              <div onClick={signUpFacebook}>
+              <img src="https://img.icons8.com/fluency/48/null/facebook-new.png"/>
+              </div>
+
+              <div onClick={signUpMicrosoft}>
+              <img src="https://img.icons8.com/color/48/null/microsoft.png"/>
+              </div>
+              </div>
+
+            </div>
             <Button
               type="submit"
               fullWidth
@@ -150,9 +166,9 @@ export default function SignIn() {
               </Grid>
             </Grid>
 
-            {user ? <>hello </> :  <div>
+            {/* {user ? <>hello </> :  <div>
               <button onClick={handleClick}>Sign in with google</button>
-            </div>}
+            </div>} */}
            
           </Box>
         </Box>
