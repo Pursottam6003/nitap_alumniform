@@ -1,6 +1,5 @@
 
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,11 +8,14 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Autocomplete } from '@mui/material';
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+import { useState } from 'react';
 
 const auth = getAuth();
 
@@ -32,16 +34,51 @@ function Copyright(props) {
   );
 }
 
-const countryList =[
-  { label: "India"},
-  { label: "Pakistan"},
-  { label: "Us"},
-  { label: "Srilanka"},
-  { label: "Bangladesh"},
-  { label: "Nepal"},
-  { label: "Australia"},
-  { label: "Dubai"},
-  { label: "Africa"},
+const DeptList =[
+  { label:"Mechanical Eng."},
+  { label: "Computer Science Eng."},
+  { label: "Civil Eng,"} ,
+  { label: "Electronics and Comm. Eng"},
+  { label: "Electrical Eng."},
+  { label: "Dept of BAS"},
+  { label: "Dept of CS"},
+  { label: "Dept of VLSI"},
+  { label: "Dept of ME"},
+  { label: "Dept of physics"},
+  { label: "Dept of Civil Eng"}
+]
+
+const BatchList =[
+  {label:"UG 2010-14"},
+  {label:"UG 2011-15"},
+  {label:"UG 2012-16"},
+  {label:"UG 2013-17"},
+  {label:"UG 2014-18"},
+  {label:"UG 2015-19"},
+  {label:"UG 2016-20"},
+  {label:"UG 2017-21"},
+  {label:"UG 2018-22"},
+  {label:"UG 2019-23"},
+  {label:"UG 2020-24"},
+  {label:"UG 2021-25"},
+  {label:"UG 2022-26"},
+  {label:"PG 2015-17"},
+  {label:"PG 2016-18"},
+  {label:"PG 2017-19"},
+  {label:"PG 2018-20"} ,
+  {label:"PG 2019-21"} ,
+  {label:"PG 2020-22"} ,
+  {label:"PG 2021-23"} ,
+  {label:"PG 2022-24"} ,
+  {label:"PHD 2013-18"} ,
+  {label:"PHD 2014-19"} ,
+  {label:"PHD 2015-20"} ,
+  {label:"PHD 2016-21"} ,
+  {label:"PHD 2017-22"} ,
+  {label:"PHD 2018-23"} ,
+  {label:"PHD 2019-24"} ,
+  {label:"PHD 2020-25"} ,
+
 ]
 const theme = createTheme();
 
@@ -55,9 +92,15 @@ export default function SignUp() {
     // });
 
     const user ={
+      fullName:data.get('firstName')+' '+data.get('lastName'),
       email: data.get('email'),
+      phoneNumber:value,
       passord: data.get('password'),
+      batch: data.get('batch'),
+      dept : data.get('department'),
     }
+
+    console.log(user);
 
     createUserWithEmailAndPassword(auth, user.email, user.passord)
     .then((userCredential) => {
@@ -75,7 +118,7 @@ export default function SignUp() {
 
   };
 
-
+  const [value, setValue] = useState()
 
   return (
     <ThemeProvider theme={theme}>
@@ -131,31 +174,15 @@ export default function SignUp() {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={2} >
-                <TextField
-                 
-                  id="combo-box-demo"
-                  options={countryList}
-                  renderInput={(params) => <TextField {...params} 
-                    autoComplete="Vehicle Name"
-                    name="vehicleName"
-                    required
-                    fullWidth
-                    id="vehicleName"
-                    label="Vehicle Name"
-                    />} 
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={10} >
-                <TextField
-                  required
-                  fullWidth
-                  id="phone"
-                  label="Phone Number"
-                  name="phone"
-                  autoComplete="tel"
-                />
+              <Grid item xs={12}  >
+              
+                <PhoneInput
+                  placeholder="  Phone Number *"
+                  value={value}
+                  onChange={setValue}
+                  className="phoneNumber"
+                  />
+      
               </Grid>
 
               <Grid item xs={12}>
@@ -164,22 +191,40 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Current Address"
-                  type="password"
+                  type="text"
                   id="password"
                   autoComplete="new-password"
                 />
               </Grid>
 
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Batch & Dept"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
+              <Grid item xs={12} sm={6}>
+              <Autocomplete 
+                    id="combo-box-demo"
+                    options={BatchList}
+                    renderInput={(params) => <TextField {...params} 
+                    autoComplete="batch"
+                    name="batch"
+                    required
+                    fullWidth
+                    id="batch"
+                    label="Batch"
+                    />}                  
+                  />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                
+              <Autocomplete 
+                    options={DeptList}
+                    renderInput={(params) => <TextField {...params} 
+                    autoComplete="department"
+                    name="department"
+                    required
+                    fullWidth
+                    id="department"
+                    label="Department"
+                    />}                  
+                  />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -192,24 +237,11 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Confirm Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-
-
+ 
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I agree to receive notifications and updates of alumni via email."
+                  label="I agree to receive updates and notifications of NIT AP Alumni Association"
                 />
               </Grid>
             </Grid>
