@@ -69,8 +69,8 @@ export default function Checkout() {
           borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       >
-        <Toolbar >
-          <Typography variant="h6" color="inherit" id="formHeading" noWrap>
+        <Toolbar sx={{display:"flex",justifyContent:"center"}} >
+          <Typography variant="h6" align='center' color="inherit" id="formHeading" noWrap>
             NIT Arunachal Pradesh Alumni Membership Form   
           </Typography>
         </Toolbar>

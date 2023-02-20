@@ -152,8 +152,24 @@
 .MuiPaper-root MuiPaper-outlined MuiPaper-rounded css-126nd9x-MuiPaper-root
 {
     width:700px !important; 
+   
 }
 
+.removeborder
+{
+    .PhoneInputInput
+    {
+        height: 50px;
+        border:none;
+        border-bottom: 2px solid rgb(199, 194, 194);
+    }
+    .PhoneInputCountryIcon
+    {
+        width: 33px !important;
+        height: 20px !important;
+    }
+    
+}
 @media (min-width: 600px){
 
 .css-nicjba-MuiContainer-root {

@@ -1,19 +1,13 @@
-import * as React from 'react';
-import { useState } from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import {useState} from 'react';
+import React from 'react';
+import {Grid,Typography,TextField,FormControlLabel,Checkbox,Autocomplete} from '@mui/material';
 import dayjs from 'dayjs';
-import { Autocomplete } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider,MobileDatePicker } from '@mui/x-date-pickers';
+//import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import Pincode from 'react-pincode';
-
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 const TitleList =[
   {label: "Mr."},{label: "Miss"},{label:"Mrs"},{label:"Dr"},]
@@ -29,12 +23,11 @@ const ReligionList =[
   {label:"Hindu"},{label:"Muslim"},{label:"Christian"},{label:"Sikh"},{label:"Jain"},{label:"Other"}
 ]
 
-
 export default function AddressForm() {
-  const [value, setValue] = React.useState(dayjs('2000-04-07'));
-
+  const [value, setValue] = useState(dayjs('2000-04-07'));
   const [pincodeData, setPincodeData] = useState('');
-
+  const [myphoneVal, setPhoneVal] = useState(null)
+  const [alternateNo,setAlternateNo] = useState(null)
   if(pincodeData) console.log(pincodeData);
 
   return (
@@ -45,7 +38,6 @@ export default function AddressForm() {
       <Grid container spacing={3}>
 
         <Grid item xs={12} sm={6}>
-     
         <Autocomplete 
           id="title"
           options={TitleList}
@@ -83,7 +75,6 @@ export default function AddressForm() {
         </LocalizationProvider>
         </Grid>
 
-
         <Grid item xs={12} sm={4}>
           <TextField
             required
@@ -117,18 +108,6 @@ export default function AddressForm() {
             variant="standard"
           />
         </Grid>
-
-        {/* <Grid item xs={12}>
-          <TextField
-            required
-            id="address1"
-            name="address1"
-            label="Address line 1"
-            fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
-          />
-        </Grid> */}
 
         <Grid item xs={12} sm={4}>
           <Autocomplete 
@@ -251,30 +230,66 @@ export default function AddressForm() {
         </Grid>
 
         <Grid item xs={12} sm={6}>
+          <PhoneInput
+            placeholder="  Phone Number *"
+            defaultCountry='IN'
+            value={myphoneVal}
+            onChange={setPhoneVal}
+            className="phoneNumber removeborder"
+            
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+        <PhoneInput
+            placeholder="  Alternate Phone Number *"
+            value={alternateNo}
+            defaultCountry='IN'
+            onChange={setAlternateNo}
+            className="phoneNumber removeborder"
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
           <TextField
-            id="phone"
-            name="address"
-            label="Pho"
+            required
+            id="email"
+            name="email"
+            label="Email"
             fullWidth
-            autoComplete="applicant address"
+            autoComplete="email"
             variant="standard"
           />
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <TextField
-            id="mobile"
-            name="address"
-            label="Current Address"
+            required
+            id="occupation"
+            name="occupation"
+            label="Occupation"
             fullWidth
-            autoComplete="applicant address"
+            autoComplete="occupation"
             variant="standard"
           />
         </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="jobtitle"
+            name="job title"
+            label="Job Title"
+            fullWidth
+            autoComplete="jobtitle"
+            variant="standard"
+          />
+        </Grid>
+
         <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
+            label="I confirm the Personal Details are authentic"
           />
         </Grid>
       </Grid>
