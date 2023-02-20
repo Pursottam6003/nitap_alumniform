@@ -147,3 +147,21 @@
         justify-content: center;
     }
 }
+
+// form 
+.MuiPaper-root MuiPaper-outlined MuiPaper-rounded css-126nd9x-MuiPaper-root
+{
+    width:700px !important; 
+}
+
+@media (min-width: 600px){
+
+.css-nicjba-MuiContainer-root {
+    max-width: 650px !important;
+}
+}
+
+input:focus{
+    outline: none;
+
+}

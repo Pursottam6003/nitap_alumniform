@@ -1,14 +1,18 @@
 
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {Button,CssBaseline,TextField,FormControlLabel,Checkbox,Link,Grid,Box,Typography,Container,Autocomplete,Alert,AlertTitle} from '@mui/material';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import {auth,provider} from '../config/config'
+import {auth,provider,facebookProvider,microsoftProvider} from '../config/config'
 
 import {getAuth,signInWithPopup,GoogleAuthProvider} from "firebase/auth"
+
 //const auth = getAuth();
+
+
 
 function Copyright(props) {
   return (
@@ -25,7 +29,16 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+
 export default function SignIn() {
+  const history  = useNavigate();
+
+  function updateSignInRoutes()
+{
+  setTimeout(() => {
+    history('/')
+  }, 1000);
+}
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -40,7 +53,7 @@ export default function SignIn() {
       // sign ned sucessfully
       setSignedUp(true);
       console.log('signed in sucessfully')
-      
+      updateSignInRoutes();
     })
     .catch(error => console.log(error.message))
     
@@ -54,13 +67,8 @@ export default function SignIn() {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
-
-    // The signed-in user info.
-    // user = result.user;
-    // setValue(user.email);
-    // console.log(user)
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
+    setSignedUp(true);
+    updateSignInRoutes();
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -75,10 +83,32 @@ export default function SignIn() {
 
   const signUpFacebook =()=>{
     console.log('facebook authentication')
+    setSignedUp(true);
+    signInWithPopup(auth,facebookProvider)
+    .then((result)=>{
+      // signed in user info
+      const user = result.user;
+      console.log(user);
+      updateSignInRoutes();
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+
   }
 
   const signUpMicrosoft =()=>{
     console.log('Microsoft authentication')
+    setSignedUp(true);
+    signInWithPopup(auth,microsoftProvider)
+      .then((result) =>{
+        // user signed in 
+        console.log(result);
+      })
+
+    .catch((error)=>{
+      console.log(error);
+    })
   }
 
   const [signedUp,setSignedUp] = useState(false);

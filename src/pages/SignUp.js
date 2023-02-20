@@ -172,7 +172,6 @@ export default function SignUp() {
                   onChange={setValue}
                   className="phoneNumber"
                   />
-      
               </Grid>
 
               <Grid item xs={12}>

@@ -4,7 +4,8 @@ import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import 'firebase/compat/storage'
 
-import { GoogleAuthProvider } from 'firebase/auth'
+import { OAuthProvider } from 'firebase/auth'
+import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth'
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -24,6 +25,8 @@ const firebaseConfig = {
   const fs = firebase.firestore();
   const storage= firebase.storage();
   const provider =new GoogleAuthProvider();
-  
- export {auth,fs,provider}
+  const facebookProvider = new FacebookAuthProvider();
+  const microsoftProvider  =  new OAuthProvider('microsoft.com');
+
+ export {auth,fs,provider,facebookProvider,microsoftProvider}
   // export {auth,fs}
