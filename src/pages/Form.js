@@ -12,9 +12,9 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
-import Review from './Review';
+import PersonalDetails from './PersonalDetails';
+import CourseDetails from './CourseDetails'
+import Preview from './Preview';
 
 function Copyright() {
   return (
@@ -29,16 +29,16 @@ function Copyright() {
   );
 }
 
-const steps = ['Personal Details', 'Course Details', 'Self Declarations'];
+const steps = ['Personal Details', 'Course Details', 'Form Preview'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <PersonalDetails />;
     case 1:
-      return <PaymentForm />;
+      return <CourseDetails/>;
     case 2:
-      return <Review />;
+      return <Preview />;
     default:
       throw new Error('Unknown step');
   }
@@ -113,7 +113,7 @@ export default function Checkout() {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                 </Button>
               </Box>
             </React.Fragment>

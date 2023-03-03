@@ -30,6 +30,10 @@ export default function AddressForm() {
   const [alternateNo,setAlternateNo] = useState(null)
   if(pincodeData) console.log(pincodeData);
 
+  const handleControl = (e)=>{
+    console.log('hendle control')
+  }
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -193,6 +197,8 @@ export default function AddressForm() {
         getData={(data) =>{
           console.log(data);
           setPincodeData(data)
+          handleControl();
+
         } }/>
         </Grid>
   
@@ -216,6 +222,7 @@ export default function AddressForm() {
             autoComplete="shipping address-level2"
             variant="standard"
           />
+
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField

@@ -40,6 +40,7 @@ const DeptList =[
 export default function PaymentForm() {
   const [value, setValue] = useState(dayjs());
   const [gradYear,setGradyear] = useState();
+  const [sign,setSign] = useState(null);
 
   return (
     <React.Fragment>
@@ -144,7 +145,19 @@ volunteering for events and activities.
 
   
         <Grid item xs={12} md={6}>
-          <FormLabel mt={2} component="legend">Your Signature </FormLabel>
+      
+            {sign ? <>
+              <div>
+              <img
+                alt="not found"
+                width={"200px"}
+                src={URL.createObjectURL(sign)}
+              />
+              <br />
+              <Button color="error" onClick={() => setSign(null)}>Remove</Button>
+            </div>
+            </> : <>
+            <FormLabel mt={2} component="legend">Your Signature </FormLabel>
           <Button
             variant="contained"
             component="label"
@@ -152,9 +165,18 @@ volunteering for events and activities.
             Upload File
             <input
               type="file"
+              onChange={(event) => {
+              console.log(event.target.files[0]);
+              if(event.target.files[0].length !==0)
+              {
+                setSign(event.target.files[0]);
+              }
+              }}
               hidden
             />
+
           </Button>
+            </>}
         </Grid>
         <Grid item xs={12} sm={6}>
           <LocalizationProvider dateAdapter={AdapterDayjs} >

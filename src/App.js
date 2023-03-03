@@ -4,7 +4,7 @@ import SignIn from './pages/SignIn'
 import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import LayoutComponent from './layout/LayoutComponent'
-import Checkout from './pages/Checkout'
+import Form from './pages/Form'
 import Pin from './pages/Pin'
 
 import './styles/styles.scss'
@@ -18,7 +18,7 @@ function App() {
     <Route path="/" element={<Home />} />
     <Route path="/signin" element={<SignIn />} />
     <Route path="/signup" element={<SignUp />} />
-    <Route path="/form" element={<Checkout />} />
+    <Route path="/form" element={<Form /> } />
     <Route path="/pincode" element={<Pin/>} />
     
     </Routes>
